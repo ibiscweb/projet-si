@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Identité numérique scientifique IBISC (HAL, ORCID, CV HAL)</title>
+<style>
+:root {
+  --ibisc-blue: #0a3d67;
+  --ibisc-turq: #5eb1c1;
+  --ibisc-green: #1a7a4a;
+  --ibisc-orange: #d57b16;
+  --ibisc-red: #b54231;
+  --paper: #f8f7f4;
+  --paper-soft: #efece4;
+  --border: #ddd8cc;
+  --ink: #1c1c1c;
+  --muted: #6b7280;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 30px 24px 60px 24px;
+}
+
+/* Sélecteur de langue */
+.lang-switch {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  gap: 8px;
+}
+.lang-btn {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+}
+.lang-btn:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+.lang-btn.active {
+  background: var(--ibisc-blue);
+  color: #fff;
+  border-color: var(--ibisc-blue);
+}
+
+/* Affichage bilingue */
+[data-lang] { display: block; }
+body.show-fr [data-lang="en"] { display: none; }
+body.show-en [data-lang="fr"] { display: none; }
+
+/* En-tête */
+header {
+  border-bottom: 3px solid var(--ibisc-blue);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+}
+header h1 {
+  font-size: 28px;
+  color: var(--ibisc-blue);
+  margin: 0 0 8px 0;
+}
+header .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+}
+header .meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+header .meta strong { color: var(--ink); }
+
+/* TOC */
+.toc {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 24px 0 32px 0;
+}
+.toc h2 {
+  font-size: 16px;
+  color: var(--ibisc-blue);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.toc ol {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 14px;
+}
+.toc ol li { margin-bottom: 4px; }
+.toc ol ol {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.toc a { color: var(--ibisc-blue); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+/* Sections */
+section { margin-top: 40px; scroll-margin-top: 20px; }
+section > h2 {
+  font-size: 22px;
+  color: var(--ibisc-blue);
+  border-bottom: 2px solid var(--ibisc-turq);
+  padding-bottom: 6px;
+  margin: 0 0 18px 0;
+}
+section > .intro {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 22px;
+}
+
+/* Q/R */
+.qa {
+  border-left: 4px solid var(--ibisc-turq);
+  background: #fafafa;
+  padding: 16px 22px;
+  margin: 22px 0;
+  border-radius: 0 4px 4px 0;
+  scroll-margin-top: 20px;
+}
+.qa h3 {
+  font-size: 16px;
+  color: var(--ibisc-blue);
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+.qa h3 .qref {
+  display: inline-block;
+  background: var(--ibisc-blue);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.qa .symptom {
+  background: #fff;
+  border: 1px dashed var(--border);
+  padding: 10px 14px;
+  margin: 10px 0 14px 0;
+  font-size: 13.5px;
+  color: var(--muted);
+  font-style: italic;
+}
+.qa .symptom::before {
+  font-weight: 700;
+  color: var(--ibisc-orange);
+  font-style: normal;
+}
+body.show-fr .qa .symptom::before { content: "Symptôme typique : "; }
+body.show-en .qa .symptom::before { content: "Typical symptom: "; }
+
+.qa .answer { margin-bottom: 10px; }
+.qa .answer p { margin: 0 0 10px 0; }
+.qa .answer ol, .qa .answer ul {
+  margin: 6px 0 10px 0;
+  padding-left: 22px;
+}
+.qa .answer li { margin-bottom: 4px; }
+
+.qa code {
+  background: var(--paper);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 13px;
+  color: var(--ink);
+}
+.qa .url-block {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  margin: 10px 0;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  word-break: break-all;
+  border-radius: 2px;
+}
+.qa .ref-guide {
+  background: rgba(94, 177, 193, 0.08);
+  border-left: 3px solid var(--ibisc-turq);
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.qa .ref-guide strong { color: var(--ibisc-turq); }
+
+/* Alertes */
+.alert {
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 3px;
+  font-size: 13.5px;
+}
+.alert-info {
+  background: rgba(94, 177, 193, 0.08);
+  border-left: 4px solid var(--ibisc-turq);
+}
+.alert-warning {
+  background: rgba(213, 123, 22, 0.08);
+  border-left: 4px solid var(--ibisc-orange);
+}
+.alert strong:first-child { color: var(--ibisc-orange); }
+.alert-info strong:first-child { color: var(--ibisc-turq); }
+
+/* Retour en haut */
+.back-to-top {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.back-to-top:hover { color: var(--ibisc-blue); }
+
+/* Footer */
+footer {
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+footer a { color: var(--ibisc-blue); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+a { color: var(--ibisc-blue); }
+a:hover { color: #072e4f; }
+
+@media (max-width: 600px) {
+  .container { padding: 18px 14px 40px 14px; }
+  header h1 { font-size: 22px; }
+  .qa { padding: 14px 16px; }
+  .qa h3 { font-size: 15px; }
+  .qa h3 .qref { display: block; margin-bottom: 6px; }
+  .lang-switch { justify-content: center; }
+}
+</style>
+</head>
+<body class="show-fr">
+<div class="container">
+
+<div class="lang-switch">
+  <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">🇫🇷 Français</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+<header id="top">
+  <div data-lang="fr">
+    <h1>FAQ — Identité numérique scientifique IBISC</h1>
+    <p class="subtitle">Questions fréquentes sur HAL, ORCID, idHAL et CV HAL</p>
+    <p class="meta">
+      <strong>Version</strong> : 1.0 &middot;
+      <strong>Date</strong> : mai 2026 &middot;
+      <strong>Auteur</strong> : F. Davesne, IGR IBISC — Représentant HAL pour IBISC et LMEE &middot;
+      <strong>Contact</strong> : <a href="mailto:frederic.davesne@univ-evry.fr">frederic.davesne@univ-evry.fr</a>
+    </p>
+  </div>
+  <div data-lang="en">
+    <h1>FAQ — Scholarly digital identity at IBISC</h1>
+    <p class="subtitle">Frequently asked questions about HAL, ORCID, idHAL and CV HAL</p>
+    <p class="meta">
+      <strong>Version</strong>: 1.0 &middot;
+      <strong>Date</strong>: May 2026 &middot;
+      <strong>Author</strong>: F. Davesne, Research Engineer (IGR), IBISC — HAL Representative for IBISC and LMEE &middot;
+      <strong>Contact</strong>: <a href="mailto:frederic.davesne@univ-evry.fr">frederic.davesne@univ-evry.fr</a>
+    </p>
+  </div>
+</header>
+
+<section id="intro">
+  <div data-lang="fr">
+    <h2>À propos de cette FAQ</h2>
+    <p>Cette FAQ rassemble les questions les plus fréquemment posées par les membres du laboratoire IBISC concernant la construction et la gestion de leur identité numérique scientifique (HAL, ORCID, idHAL, CV HAL). Elle est alimentée par les retours réels reçus suite à la diffusion du <em>Guide pratique pour construire son identité numérique scientifique</em> (F. Davesne, mai 2026).</p>
+    <p>Cette FAQ est un <strong>complément</strong> au guide principal, pas un substitut. Pour comprendre les concepts (ORCID, idHAL, CV HAL, signature normalisée IBISC, obligations ANR…), commencez par lire le guide. Pour résoudre un problème spécifique ou répondre à une interrogation ciblée, parcourez cette FAQ.</p>
+    <div class="alert alert-info">
+      <strong>Comment utiliser cette page :</strong>
+      Utilisez la table des matières ci-dessous pour aller directement à la question qui vous concerne, ou faites une recherche dans la page avec <code>Ctrl+F</code> (ou <code>Cmd+F</code> sur Mac). Vous pouvez basculer entre français et anglais avec les boutons en haut de la page.
+    </div>
+    <div class="alert alert-info">
+      <strong>📄 Document de référence :</strong>
+      cette FAQ est un complément au <a href="./guide-hal-orcid-cvhal-v1.0.pdf"><em>Guide pratique pour construire son identité numérique scientifique</em></a> (PDF, 16 pages, v1.0, mai 2026). Le guide expose en détail les 5 étapes de la démarche (ORCID, compte HAL, idHAL, liaison ORCID-HAL, CV HAL), explique les concepts (formes IBISC, signature normalisée, obligations ANR), et propose une FAQ technique (section 7) plus orientée procédures que la présente FAQ.
+    </div>
+  </div>
+  <div data-lang="en">
+    <h2>About this FAQ</h2>
+    <p>This FAQ collects the most frequently asked questions from members of the IBISC laboratory regarding the construction and management of their scholarly digital identity (HAL, ORCID, idHAL, CV HAL). It is fed by real feedback received following the distribution of the <em>Practical guide to building your scholarly digital identity</em> (F. Davesne, May 2026).</p>
+    <p>This FAQ is a <strong>complement</strong> to the main guide, not a substitute. To understand the concepts (ORCID, idHAL, CV HAL, normalised IBISC signature, ANR obligations…), start by reading the guide. To solve a specific problem or answer a targeted question, browse this FAQ.</p>
+    <div class="alert alert-info">
+      <strong>How to use this page:</strong>
+      Use the table of contents below to go directly to the question that concerns you, or search the page with <code>Ctrl+F</code> (or <code>Cmd+F</code> on Mac). You can switch between French and English using the buttons at the top of the page.
+    </div>
+    <div class="alert alert-info">
+      <strong>📄 Reference document:</strong>
+      this FAQ is a complement to the <a href="./guide-hal-orcid-cvhal-v1.0.pdf"><em>Practical guide to building your scholarly digital identity</em></a> (PDF, 16 pages, v1.0, May 2026, <em>available in French only</em>). The guide details the 5 steps of the process (ORCID, HAL account, idHAL, ORCID-HAL linking, CV HAL), explains the concepts (IBISC forms, normalised signature, ANR obligations), and offers a technical FAQ (section 7) more procedure-oriented than this FAQ.
+    </div>
+  </div>
+
+  <div class="toc">
+    <div data-lang="fr">
+      <h2>Sommaire</h2>
+      <ol>
+        <li><a href="#sec1">Compte HAL et idHAL</a>
+          <ol>
+            <li><a href="#q11">Comment savoir si j'ai déjà un idHAL ?</a></li>
+            <li><a href="#q12">J'ai créé mon idHAL mais je ne vois pas mes publications dans « Mes dépôts »</a></li>
+            <li><a href="#q13">Je viens d'arriver à IBISC depuis un autre laboratoire, dois-je créer un nouveau compte HAL ?</a></li>
+            <li><a href="#q14">L'email associé à mon compte HAL est mon ancien email. Est-ce un problème ?</a></li>
+            <li><a href="#q15">J'ai créé plusieurs comptes HAL par erreur, comment les fusionner ?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec2">Publications et affiliations</a>
+          <ol>
+            <li><a href="#q21">Mes anciennes publications n'apparaissent pas sur ma page Membre du site IBISC</a></li>
+            <li><a href="#q22">Une notice HAL contient une erreur (nom, affiliation, financement)</a></li>
+            <li><a href="#q23">Quelle forme « IBISC » dois-je choisir dans HAL ?</a></li>
+            <li><a href="#q24">Comment relier rétroactivement mes publications à mon projet ANR ?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec3">CV HAL</a>
+          <ol>
+            <li><a href="#q31">J'ai créé mon CV HAL mais mes préférences ne semblent pas se mettre à jour</a></li>
+            <li><a href="#q32">Mon CV HAL est vide alors que j'ai bien des publications dans HAL</a></li>
+            <li><a href="#q33">Comment personnaliser mon CV HAL au-delà des publications ?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec4">ORCID et liaison avec HAL</a>
+          <ol>
+            <li><a href="#q41">Comment lier mon ORCID à mon idHAL ?</a></li>
+            <li><a href="#q42">La liaison ORCID-HAL ne semble pas fonctionner</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec5">Cas particuliers</a>
+          <ol>
+            <li><a href="#q51">Doctorants en cotutelle internationale</a></li>
+            <li><a href="#q52">EC arrivés d'un autre laboratoire</a></li>
+            <li><a href="#q53">Doctorants en début de thèse sans publication</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+    <div data-lang="en">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#sec1">HAL account and idHAL</a>
+          <ol>
+            <li><a href="#q11">How can I tell if I already have an idHAL?</a></li>
+            <li><a href="#q12">I created my idHAL but I don't see my publications under "My deposits"</a></li>
+            <li><a href="#q13">I just arrived at IBISC from another lab — should I create a new HAL account?</a></li>
+            <li><a href="#q14">The email linked to my HAL account is my old email. Is that a problem?</a></li>
+            <li><a href="#q15">I accidentally created several HAL accounts — how do I merge them?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec2">Publications and affiliations</a>
+          <ol>
+            <li><a href="#q21">My older publications don't appear on my IBISC Member page</a></li>
+            <li><a href="#q22">A HAL record contains an error (name, affiliation, funding)</a></li>
+            <li><a href="#q23">Which "IBISC" form should I choose in HAL?</a></li>
+            <li><a href="#q24">How do I retroactively link my publications to my ANR project?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec3">CV HAL</a>
+          <ol>
+            <li><a href="#q31">I created my CV HAL but my preferences don't seem to update</a></li>
+            <li><a href="#q32">My CV HAL is empty even though I have publications in HAL</a></li>
+            <li><a href="#q33">How do I customize my CV HAL beyond the publications list?</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec4">ORCID and linking with HAL</a>
+          <ol>
+            <li><a href="#q41">How do I link my ORCID to my idHAL?</a></li>
+            <li><a href="#q42">The ORCID-HAL link does not seem to work</a></li>
+          </ol>
+        </li>
+        <li><a href="#sec5">Special cases</a>
+          <ol>
+            <li><a href="#q51">PhD students in international co-supervision</a></li>
+            <li><a href="#q52">Faculty arrived from another laboratory</a></li>
+            <li><a href="#q53">PhD students in early stage without publications</a></li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="sec1">
+  <div data-lang="fr">
+    <h2>1. Compte HAL et idHAL</h2>
+    <p class="intro">Questions sur la création, la gestion et l'identification de votre compte HAL et de votre idHAL (identifiant auteur unique).</p>
+  </div>
+  <div data-lang="en">
+    <h2>1. HAL account and idHAL</h2>
+    <p class="intro">Questions on creating, managing and identifying your HAL account and your idHAL (unique author identifier).</p>
+  </div>
+
+  <div class="qa" id="q11">
+    <div data-lang="fr">
+      <h3><span class="qref">Q1.1</span> Comment savoir si j'ai déjà un idHAL ?</h3>
+      <div class="symptom">« Je ne sais pas si j'ai un idHAL ou non. Certains collègues m'ont dit que HAL en crée automatiquement quand on a une publication. »</div>
+      <div class="answer">
+        <p>Trois moyens de vérifier rapidement :</p>
+        <ol>
+          <li><strong>Tester l'URL pérenne du CV HAL.</strong> Si votre idHAL serait <em>prenom-nom</em>, essayez :</li>
+        </ol>
+        <div class="url-block">https://cv.hal.science/prenom-nom</div>
+        <p>Si la page existe, vous avez un idHAL et un CV HAL (étape la plus avancée). Si elle renvoie une erreur 404, vous n'avez probablement pas de CV HAL, mais peut-être un idHAL sans CV.</p>
+        <ol start="2">
+          <li><strong>Consulter AuréHAL.</strong> Allez sur <a href="https://aurehal.archives-ouvertes.fr/">aurehal.archives-ouvertes.fr</a> et recherchez votre nom. Si votre idHAL existe, il apparaîtra dans la colonne dédiée. C'est aussi là que vous pouvez voir votre <em>ID Auteur</em> (un numéro à 7 chiffres) qui est utile pour construire des liens.</li>
+          <li><strong>Me demander.</strong> En tant que représentant HAL d'IBISC, je peux vérifier votre situation en 30 secondes et vous dire exactement où vous en êtes.</li>
+        </ol>
+        <p>À noter : HAL ne crée <strong>pas automatiquement</strong> un idHAL pour vous. L'idHAL est une démarche volontaire — vous devez le créer vous-même via votre compte HAL. Cependant, certaines de vos publications peuvent déjà être dans HAL (déposées par un co-auteur ou par moi), sans que vous ayez de compte ni d'idHAL.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étapes 2 (création du compte HAL) et 3 (création de l'idHAL).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q1.1</span> How can I tell if I already have an idHAL?</h3>
+      <div class="symptom">"I don't know whether I have an idHAL or not. Some colleagues told me HAL creates one automatically when you have a publication."</div>
+      <div class="answer">
+        <p>Three quick ways to check:</p>
+        <ol>
+          <li><strong>Test the CV HAL persistent URL.</strong> If your idHAL would be <em>firstname-lastname</em>, try:</li>
+        </ol>
+        <div class="url-block">https://cv.hal.science/firstname-lastname</div>
+        <p>If the page exists, you have both an idHAL and a CV HAL (the most advanced stage). If it returns a 404 error, you probably don't have a CV HAL, but you may still have an idHAL without a CV.</p>
+        <ol start="2">
+          <li><strong>Check AuréHAL.</strong> Go to <a href="https://aurehal.archives-ouvertes.fr/">aurehal.archives-ouvertes.fr</a> and search for your name. If your idHAL exists, it will appear in the dedicated column. This is also where you can see your <em>Author ID</em> (a 7-digit number) which is useful for building links.</li>
+          <li><strong>Ask me.</strong> As IBISC's HAL representative, I can check your situation in 30 seconds and tell you exactly where you stand.</li>
+        </ol>
+        <p>Note: HAL does <strong>not automatically</strong> create an idHAL for you. The idHAL is a voluntary step — you must create it yourself via your HAL account. However, some of your publications may already be in HAL (deposited by a co-author or by me), even if you don't have an account or an idHAL.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: steps 2 (creating the HAL account) and 3 (creating the idHAL).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q12">
+    <div data-lang="fr">
+      <h3><span class="qref">Q1.2</span> J'ai créé mon idHAL mais je ne vois pas mes publications dans « Mes dépôts »</h3>
+      <div class="symptom">« Je viens d'activer mon idHAL, mais ma publication n'apparaît pas dans la rubrique à gauche, "Mes dépôts". »</div>
+      <div class="answer">
+        <p>C'est une confusion classique dans l'interface HAL : la rubrique <strong>« Mes dépôts »</strong> n'affiche <em>que les publications que vous avez déposées vous-même</em> via votre compte HAL.</p>
+        <p>Si votre article a été déposé par :</p>
+        <ul>
+          <li>un de vos co-auteurs d'une autre institution,</li>
+          <li>votre directeur ou directrice de thèse,</li>
+          <li>le représentant HAL d'IBISC (F. Davesne, qui dépose la quasi-totalité des publications du laboratoire),</li>
+        </ul>
+        <p>… la publication n'apparaîtra <strong>jamais</strong> dans votre rubrique « Mes dépôts », même si elle est correctement rattachée à votre idHAL.</p>
+        <p>Pour voir toutes vos publications regroupées sous votre idHAL, allez dans :</p>
+        <div class="url-block">Mon IdHAL → onglet « Mes publications »</div>
+        <p>Vous pouvez aussi utiliser une URL technique de recherche par identifiant auteur HAL pour voir toutes vos publications en une seule liste :</p>
+        <div class="url-block">https://hal.science/search/index/?q=%2A&amp;authIdPerson_i=<em>VOTRE_ID</em>&amp;sort=publicationDate_tdate+desc</div>
+        <p>Remplacez <code>VOTRE_ID</code> par votre <em>ID Auteur</em> HAL (trouvable dans AuréHAL, voir Q1.1).</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 3 (création de l'idHAL).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q1.2</span> I created my idHAL but I don't see my publications under "My deposits"</h3>
+      <div class="symptom">"I just activated my idHAL, but my publication does not appear in the left-hand section 'My deposits'."</div>
+      <div class="answer">
+        <p>This is a classic confusion in the HAL interface: the <strong>"My deposits"</strong> section <em>only displays publications you have deposited yourself</em> via your HAL account.</p>
+        <p>If your article was deposited by:</p>
+        <ul>
+          <li>one of your co-authors from another institution,</li>
+          <li>your PhD supervisor,</li>
+          <li>the IBISC HAL representative (F. Davesne, who deposits almost all of the laboratory's publications),</li>
+        </ul>
+        <p>… the publication will <strong>never</strong> appear in your "My deposits" section, even though it is correctly linked to your idHAL.</p>
+        <p>To see all your publications grouped under your idHAL, go to:</p>
+        <div class="url-block">My IdHAL → "My publications" tab</div>
+        <p>You can also use a technical search URL by HAL author identifier to see all your publications in a single list:</p>
+        <div class="url-block">https://hal.science/search/index/?q=%2A&amp;authIdPerson_i=<em>YOUR_ID</em>&amp;sort=publicationDate_tdate+desc</div>
+        <p>Replace <code>YOUR_ID</code> with your HAL <em>Author ID</em> (found in AuréHAL, see Q1.1).</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 3 (creating the idHAL).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q13">
+    <div data-lang="fr">
+      <h3><span class="qref">Q1.3</span> Je viens d'arriver à IBISC depuis un autre laboratoire, dois-je créer un nouveau compte HAL ?</h3>
+      <div class="symptom">« J'ai déjà un compte HAL créé à mon ancien laboratoire, mais l'email associé est encore mon ancienne adresse institutionnelle. Dois-je en créer un nouveau ? »</div>
+      <div class="answer">
+        <p><strong>Non, surtout pas.</strong> Si vous avez déjà un compte HAL, conservez-le — il contient déjà votre historique de dépôts et est probablement lié à un idHAL si vous en avez créé un.</p>
+        <p>En revanche, il y a deux opérations à envisager :</p>
+        <ol>
+          <li><strong>Mettre à jour l'email associé.</strong> Allez dans <em>Mon Profil → modifier l'adresse email</em> et remplacez votre ancienne adresse institutionnelle par votre nouvelle adresse <code>prenom.nom@univ-evry.fr</code>. C'est purement cosmétique et ça n'affecte rien sur vos publications, mais c'est plus propre.</li>
+          <li><strong>Vérifier votre affiliation par défaut pour les futurs dépôts.</strong> Toujours dans <em>Mon Profil</em>, vérifiez que l'affiliation par défaut est bien la forme active d'IBISC (« Informatique, BioInformatique, Systèmes Complexes », forme verte dans HAL), et non plus votre ancienne institution. Voir Q2.3 pour le détail sur les formes IBISC.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>À noter :</strong> l'email associé au compte HAL et l'affiliation des publications sont <em>deux choses indépendantes</em>. L'email du profil ne « tag » pas les publications. Une publication peut très bien être affiliée IBISC même si elle a été déposée depuis un compte HAL dont l'email est encore celui de votre ancien laboratoire.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 2 (création du compte HAL), section 5 (signature normalisée IBISC).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q1.3</span> I just arrived at IBISC from another lab — should I create a new HAL account?</h3>
+      <div class="symptom">"I already have a HAL account created at my previous laboratory, but the associated email is still my old institutional address. Should I create a new one?"</div>
+      <div class="answer">
+        <p><strong>No, absolutely not.</strong> If you already have a HAL account, keep it — it already contains your deposit history and is probably linked to an idHAL if you created one.</p>
+        <p>However, there are two operations to consider:</p>
+        <ol>
+          <li><strong>Update the associated email.</strong> Go to <em>My Profile → modify email address</em> and replace your old institutional address with your new <code>firstname.lastname@univ-evry.fr</code> address. It is purely cosmetic and does not affect your publications, but it is cleaner.</li>
+          <li><strong>Check your default affiliation for future deposits.</strong> Still in <em>My Profile</em>, verify that the default affiliation is the active IBISC form ("Informatique, BioInformatique, Systèmes Complexes", the green form in HAL), and no longer your previous institution. See Q2.3 for details on IBISC forms.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Note:</strong> the email associated with the HAL account and the affiliation of publications are <em>two independent things</em>. The profile email does not "tag" your publications. A publication can be affiliated with IBISC even if it was deposited from a HAL account whose email is still that of your previous laboratory.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 2 (creating the HAL account), section 5 (normalised IBISC signature).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q14">
+    <div data-lang="fr">
+      <h3><span class="qref">Q1.4</span> L'email associé à mon compte HAL est mon ancien email (Gmail, autre institution). Est-ce un problème ?</h3>
+      <div class="symptom">« J'ai créé mon compte HAL avec mon adresse Gmail personnelle / mon ancienne adresse institutionnelle. Est-ce que je dois la changer pour mon adresse univ-evry.fr ? »</div>
+      <div class="answer">
+        <p>Ce n'est <strong>pas un problème</strong>, et c'est même parfois préférable. Pour comprendre pourquoi, il faut distinguer deux choses :</p>
+        <ul>
+          <li><strong>L'email de contact</strong> : c'est celui qui reçoit les notifications HAL (validation de dépôts, demandes de correction, etc.).</li>
+          <li><strong>L'affiliation des publications</strong> : c'est ce qui figure dans les notices et qui détermine le rattachement institutionnel (IBISC, UEvry, etc.).</li>
+        </ul>
+        <p>Ces deux choses sont <strong>totalement indépendantes</strong>. Vous pouvez avoir un compte HAL avec email Gmail et déposer des publications affiliées IBISC sans aucun souci.</p>
+        <div class="alert alert-info">
+          <strong>Conseil pratique pour les doctorants :</strong>
+          garder une adresse email <em>pérenne</em> (Gmail, ProtonMail, etc.) sur votre compte HAL est même <strong>recommandé</strong> : votre adresse <code>prenom.nom@univ-evry.fr</code> sera désactivée quelques mois après votre soutenance. Si elle est seule à être renseignée dans HAL, vous risquez de perdre l'accès à votre compte au moment crucial de la mobilité post-thèse.
+        </div>
+        <p>Le mieux est d'<strong>ajouter une adresse secondaire</strong> :</p>
+        <ol>
+          <li>Une adresse personnelle pérenne (Gmail, autre)</li>
+          <li>Votre adresse institutionnelle actuelle <code>prenom.nom@univ-evry.fr</code></li>
+        </ol>
+        <p>Ainsi HAL peut vous retrouver via les deux adresses, et vous gardez l'accès à votre compte même après la fin de votre rattachement à UEvry.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 2 (création du compte HAL), section 3 (cas spécifique des doctorants).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q1.4</span> The email linked to my HAL account is my old email (Gmail, other institution). Is that a problem?</h3>
+      <div class="symptom">"I created my HAL account with my personal Gmail address / my old institutional address. Should I change it to my univ-evry.fr address?"</div>
+      <div class="answer">
+        <p>It is <strong>not a problem</strong>, and is sometimes even preferable. To understand why, it helps to distinguish two things:</p>
+        <ul>
+          <li><strong>The contact email</strong>: this is what receives HAL notifications (deposit validation, correction requests, etc.).</li>
+          <li><strong>The affiliation of publications</strong>: this is what appears in the records and determines the institutional attachment (IBISC, UEvry, etc.).</li>
+        </ul>
+        <p>These two things are <strong>completely independent</strong>. You can have a HAL account with a Gmail email and deposit publications affiliated with IBISC without any problem.</p>
+        <div class="alert alert-info">
+          <strong>Practical advice for PhD students:</strong>
+          keeping a <em>persistent</em> email address (Gmail, ProtonMail, etc.) on your HAL account is even <strong>recommended</strong>: your <code>firstname.lastname@univ-evry.fr</code> address will be deactivated a few months after your defence. If it is the only one registered in HAL, you risk losing access to your account at the critical moment of post-PhD mobility.
+        </div>
+        <p>The best option is to <strong>add a secondary address</strong>:</p>
+        <ol>
+          <li>A persistent personal address (Gmail, other)</li>
+          <li>Your current institutional address <code>firstname.lastname@univ-evry.fr</code></li>
+        </ol>
+        <p>This way HAL can find you via both addresses, and you keep access to your account even after your affiliation with UEvry ends.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 2 (creating the HAL account), section 3 (specific case of PhD students).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q15">
+    <div data-lang="fr">
+      <h3><span class="qref">Q1.5</span> J'ai créé plusieurs comptes HAL par erreur, comment les fusionner ?</h3>
+      <div class="symptom">« Je me rends compte que j'ai deux comptes HAL distincts (par exemple un créé à mon ancienne institution et un nouveau créé à IBISC). Comment fusionner ? »</div>
+      <div class="answer">
+        <p>Les comptes HAL ne peuvent <strong>pas être fusionnés via l'interface web</strong>. Il faut passer par le support CCSD (Centre pour la Communication Scientifique Directe, qui gère HAL au CNRS).</p>
+        <p>La procédure :</p>
+        <ol>
+          <li>Envoyez un mail à <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a> en précisant :
+            <ul>
+              <li>vos deux logins HAL</li>
+              <li>l'email à conserver (en principe <code>univ-evry.fr</code>, votre adresse actuelle)</li>
+              <li>une demande explicite de migration des publications du compte secondaire vers le compte principal</li>
+            </ul>
+          </li>
+          <li>Le CCSD effectue la migration manuelle des publications du compte secondaire vers le compte principal.</li>
+          <li>Délai habituel : quelques jours à 2 semaines selon leur charge.</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>Attention :</strong> avant de demander une fusion, vérifiez que vous avez bien <em>deux comptes distincts</em>. Une cause fréquente de confusion est d'avoir <em>un seul compte</em> avec un email obsolète, ce qui donne l'impression qu'il y a deux entités séparées. Voir Q1.3 et Q1.4 pour ce cas.
+        </div>
+        <p>Si vous n'êtes pas sûr·e de votre situation, contactez-moi avant — je peux vérifier dans AuréHAL si vous avez réellement plusieurs comptes ou non.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : FAQ 7.4 du guide principal (fusion de comptes HAL en double).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q1.5</span> I accidentally created several HAL accounts — how do I merge them?</h3>
+      <div class="symptom">"I realize I have two separate HAL accounts (for example, one created at my previous institution and a new one at IBISC). How do I merge them?"</div>
+      <div class="answer">
+        <p>HAL accounts <strong>cannot be merged via the web interface</strong>. You have to go through CCSD support (Centre pour la Communication Scientifique Directe, which manages HAL at CNRS).</p>
+        <p>The procedure:</p>
+        <ol>
+          <li>Send an email to <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a> specifying:
+            <ul>
+              <li>your two HAL logins</li>
+              <li>the email to keep (normally <code>univ-evry.fr</code>, your current address)</li>
+              <li>an explicit request for migration of publications from the secondary account to the main account</li>
+            </ul>
+          </li>
+          <li>CCSD performs the manual migration of publications from the secondary account to the main account.</li>
+          <li>Typical delay: a few days to 2 weeks depending on their workload.</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>Warning:</strong> before requesting a merge, verify that you actually have <em>two distinct accounts</em>. A common source of confusion is having <em>one single account</em> with an outdated email, which gives the impression of two separate entities. See Q1.3 and Q1.4 for this case.
+        </div>
+        <p>If you are not sure about your situation, contact me first — I can verify in AuréHAL whether you actually have multiple accounts or not.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: FAQ 7.4 of the main guide (merging duplicate HAL accounts).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- SECTION 2 : PUBLICATIONS ET AFFILIATIONS                                -->
+<!-- ====================================================================== -->
+<section id="sec2">
+  <div data-lang="fr">
+    <h2>2. Publications et affiliations</h2>
+    <p class="intro">Questions sur la gestion de vos publications dans HAL : affichage, corrections, affiliations IBISC, liens vers vos projets de recherche.</p>
+  </div>
+  <div data-lang="en">
+    <h2>2. Publications and affiliations</h2>
+    <p class="intro">Questions on managing your publications in HAL: display, corrections, IBISC affiliations, links to your research projects.</p>
+  </div>
+
+  <div class="qa" id="q21">
+    <div data-lang="fr">
+      <h3><span class="qref">Q2.1</span> Mes anciennes publications n'apparaissent pas sur ma page Membre du site IBISC</h3>
+      <div class="symptom">« Sur ma page Membre du site IBISC, je ne vois que mes publications récentes affiliées à IBISC. Toutes mes publications antérieures (faites dans un autre laboratoire) ne s'affichent pas, alors qu'elles sont bien dans HAL. »</div>
+      <div class="answer">
+        <p>C'est <strong>normal et c'est le comportement attendu</strong>. Sur le site IBISC, votre page Membre intègre un lien vers vos publications HAL qui filtre <em>sur la collection IBISC uniquement</em>. Ce filtre n'affiche que les publications affiliées à IBISC, donc celles déposées depuis votre arrivée au laboratoire.</p>
+        <p>Vos publications antérieures sont factuellement affiliées à vos institutions précédentes (c'était la bonne affiliation à l'époque), et elles ne remontent donc pas dans le filtre IBISC. C'est même le rôle de ce filtre : être une vitrine institutionnelle de ce que le laboratoire a produit.</p>
+        <p>Pour avoir une vue d'<strong>ensemble de toutes vos publications</strong> (toutes affiliations confondues), deux solutions :</p>
+        <ol>
+          <li><strong>Créer votre CV HAL</strong> (étape 5 du guide) : il vous donne une URL personnelle pérenne <code>cv.hal.science/prenom-nom</code> qui affiche <em>toutes</em> vos publications, quelles que soient les affiliations historiques.</li>
+          <li><strong>Utiliser l'URL technique de recherche par identifiant auteur HAL</strong> :</li>
+        </ol>
+        <div class="url-block">https://hal.science/search/index/?q=%2A&amp;authIdPerson_i=<em>VOTRE_ID</em>&amp;sort=publicationDate_tdate+desc</div>
+        <p>Remplacez <code>VOTRE_ID</code> par votre <em>ID Auteur</em> HAL (voir Q1.1 pour le trouver).</p>
+        <div class="alert alert-info">
+          <strong>Distinction conceptuelle utile :</strong>
+          la page Membre IBISC montre ce que vous avez produit <em>au sein du laboratoire</em> (logique institutionnelle), le CV HAL montre votre <em>production complète</em> (logique personnelle). Les deux sont complémentaires et utiles pour des publics différents.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 5 (création du CV HAL).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q2.1</span> My older publications don't appear on my IBISC Member page</h3>
+      <div class="symptom">"On my Member page on the IBISC website, I only see my recent publications affiliated with IBISC. All my earlier publications (made at another laboratory) don't show up, even though they are in HAL."</div>
+      <div class="answer">
+        <p>This is <strong>normal and is the expected behaviour</strong>. On the IBISC website, your Member page includes a link to your HAL publications that filters <em>on the IBISC collection only</em>. This filter only displays publications affiliated with IBISC, meaning those deposited since your arrival at the laboratory.</p>
+        <p>Your earlier publications are factually affiliated with your previous institutions (which was the correct affiliation at the time), and they don't appear in the IBISC filter. This is even the purpose of this filter: to be an institutional showcase of what the laboratory has produced.</p>
+        <p>To get an overview of <strong>all your publications</strong> (across all affiliations), two solutions:</p>
+        <ol>
+          <li><strong>Create your CV HAL</strong> (step 5 of the guide): it gives you a persistent personal URL <code>cv.hal.science/firstname-lastname</code> that displays <em>all</em> your publications, regardless of historical affiliations.</li>
+          <li><strong>Use the technical search URL by HAL author identifier</strong>:</li>
+        </ol>
+        <div class="url-block">https://hal.science/search/index/?q=%2A&amp;authIdPerson_i=<em>YOUR_ID</em>&amp;sort=publicationDate_tdate+desc</div>
+        <p>Replace <code>YOUR_ID</code> with your HAL <em>Author ID</em> (see Q1.1 to find it).</p>
+        <div class="alert alert-info">
+          <strong>Useful conceptual distinction:</strong>
+          the IBISC Member page shows what you have produced <em>within the laboratory</em> (institutional logic), the CV HAL shows your <em>complete output</em> (personal logic). The two are complementary and useful for different audiences.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 5 (creating the CV HAL).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q22">
+    <div data-lang="fr">
+      <h3><span class="qref">Q2.2</span> Une notice HAL contient une erreur (nom, affiliation, financement)</h3>
+      <div class="symptom">« J'ai trouvé une notice de l'une de mes publications dans HAL qui contient une faute (mon nom est mal orthographié, mon affiliation IBISC est manquante, le projet ANR n'est pas mentionné…). Comment la corriger ? »</div>
+      <div class="answer">
+        <p>Plusieurs scénarios possibles selon vos droits sur la notice :</p>
+        <ol>
+          <li><strong>Vous êtes connecté·e à HAL et identifié·e comme auteur de la publication</strong> : vous pouvez modifier la notice directement depuis l'interface en cliquant sur le bouton <em>Modifier</em> sur la page de la publication.</li>
+          <li><strong>Vous n'avez pas les droits de modification</strong> (publication déposée par un co-auteur sans vous donner accès) : contactez-moi en tant que représentant HAL d'IBISC. Je peux intervenir au nom du laboratoire pour corriger les métadonnées (votre nom, votre affiliation, ajout du projet financeur).</li>
+          <li><strong>Modification structurelle</strong> (doublons à fusionner, problème d'affiliation au niveau base) : il faut contacter le support CCSD directement à <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Cas typique IBISC :</strong>
+          il arrive qu'une publication soit affiliée uniquement à votre institution précédente alors qu'elle a été produite pendant votre période IBISC, ou que l'affiliation IBISC soit déclarée sous une forme historique (orange) au lieu de la forme active (verte). Voir Q2.3. Je peux corriger ces points facilement, n'hésitez pas à m'en parler.
+        </div>
+        <p>Pour me faciliter le travail, joignez à votre message :</p>
+        <ul>
+          <li>l'URL complète de la notice HAL concernée (ex. <code>https://hal.science/hal-XXXXXXX</code>)</li>
+          <li>la description précise de l'erreur</li>
+          <li>la correction attendue</li>
+        </ul>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 2.3 (que faire en cas d'erreur dans une notice HAL).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q2.2</span> A HAL record contains an error (name, affiliation, funding)</h3>
+      <div class="symptom">"I found a record of one of my publications in HAL that contains a mistake (my name is misspelled, my IBISC affiliation is missing, the ANR project is not mentioned…). How do I correct it?"</div>
+      <div class="answer">
+        <p>Several scenarios are possible depending on your rights on the record:</p>
+        <ol>
+          <li><strong>You are logged in to HAL and identified as author of the publication</strong>: you can modify the record directly from the interface by clicking the <em>Modify</em> button on the publication page.</li>
+          <li><strong>You don't have modification rights</strong> (publication deposited by a co-author without granting you access): contact me as IBISC's HAL representative. I can intervene on behalf of the laboratory to correct metadata (your name, your affiliation, adding the funding project).</li>
+          <li><strong>Structural modification</strong> (duplicates to merge, base-level affiliation issue): contact CCSD support directly at <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Typical IBISC case:</strong>
+          sometimes a publication is affiliated only with your previous institution while it was produced during your IBISC period, or the IBISC affiliation is declared under a historical form (orange) instead of the active form (green). See Q2.3. I can correct these easily, don't hesitate to mention them.
+        </div>
+        <p>To make my work easier, please include in your message:</p>
+        <ul>
+          <li>the full URL of the HAL record concerned (e.g. <code>https://hal.science/hal-XXXXXXX</code>)</li>
+          <li>a precise description of the error</li>
+          <li>the expected correction</li>
+        </ul>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 2.3 (what to do in case of an error in a HAL record).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q23">
+    <div data-lang="fr">
+      <h3><span class="qref">Q2.3</span> Quelle forme « IBISC » dois-je choisir dans HAL ?</h3>
+      <div class="symptom">« Quand je dépose une publication dans HAL et que je commence à taper "IBISC" dans le champ Affiliation, je vois apparaître plusieurs formes différentes. Laquelle dois-je choisir ? »</div>
+      <div class="answer">
+        <p>HAL conserve les <strong>cinq formes historiques d'IBISC</strong> qui correspondent à l'évolution institutionnelle du laboratoire depuis sa création en 2006. C'est normal : HAL est une archive historique, donc toutes les formes restent disponibles pour les dépôts rétroactifs.</p>
+        <p><strong>Règle simple pour vos nouveaux dépôts :</strong> choisissez la forme IBISC qui apparaît en <strong>vert</strong>, c'est la forme active depuis le 1er janvier 2020. Son nom complet est « Informatique, BioInformatique, Systèmes Complexes ».</p>
+        <p>Les quatre autres formes (en orange) sont des formes historiques fermées, à utiliser uniquement pour des dépôts rétroactifs de publications anciennes :</p>
+        <ul>
+          <li>FRE CNRS, 1<sup>re</sup> période (2006-2007)</li>
+          <li>FRE CNRS, 2<sup>e</sup> période (2008-2009)</li>
+          <li>EA 4526 (2010 - janvier 2019), nom : « Informatique, Biologie Intégrative et Systèmes Complexes »</li>
+          <li>EA 4526 (février - décembre 2019, transition), nom : « Informatique, BioInformatique, Systèmes Complexes »</li>
+        </ul>
+        <p>Le changement de nom de 2019 (où le « B » d'IBISC est passé de « Biologie Intégrative » à « BioInformatique ») reflète une évolution scientifique du laboratoire.</p>
+        <div class="alert alert-info">
+          <strong>Cas d'une publication ancienne en cours de dépôt :</strong>
+          deux options sont acceptables — soit choisir la forme active actuelle (verte), plus pragmatique et facilitant la consolidation des bilans ; soit choisir la forme correspondant à la date de parution de l'article (historiquement fidèle). En cas de doute, contactez-moi.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 5.5 (IBISC a plusieurs formes dans HAL : choisissez la bonne).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q2.3</span> Which "IBISC" form should I choose in HAL?</h3>
+      <div class="symptom">"When I deposit a publication in HAL and start typing 'IBISC' in the Affiliation field, several different forms appear. Which one should I choose?"</div>
+      <div class="answer">
+        <p>HAL preserves the <strong>five historical forms of IBISC</strong> which reflect the institutional evolution of the laboratory since its creation in 2006. This is normal: HAL is a historical archive, so all forms remain available for retroactive deposits.</p>
+        <p><strong>Simple rule for your new deposits:</strong> choose the IBISC form that appears in <strong>green</strong>, this is the active form since 1 January 2020. Its full name is "Informatique, BioInformatique, Systèmes Complexes".</p>
+        <p>The four other forms (in orange) are historical closed forms, to be used only for retroactive deposits of older publications:</p>
+        <ul>
+          <li>FRE CNRS, 1<sup>st</sup> period (2006-2007)</li>
+          <li>FRE CNRS, 2<sup>nd</sup> period (2008-2009)</li>
+          <li>EA 4526 (2010 - January 2019), name: "Informatique, Biologie Intégrative et Systèmes Complexes"</li>
+          <li>EA 4526 (February - December 2019, transition), name: "Informatique, BioInformatique, Systèmes Complexes"</li>
+        </ul>
+        <p>The 2019 name change (where the "B" of IBISC shifted from "Biologie Intégrative" to "BioInformatique") reflects a scientific evolution of the laboratory.</p>
+        <div class="alert alert-info">
+          <strong>Case of an older publication being deposited:</strong>
+          two options are acceptable — either choose the current active form (green), more pragmatic and facilitating consolidation of reports; or choose the form corresponding to the publication date (historically faithful). If in doubt, contact me.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 5.5 (IBISC has several forms in HAL: choose the right one).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q24">
+    <div data-lang="fr">
+      <h3><span class="qref">Q2.4</span> Comment relier rétroactivement mes publications à mon projet ANR ?</h3>
+      <div class="symptom">« Je viens de m'apercevoir que mes publications issues de mon projet ANR ne sont pas reliées au projet dans leurs métadonnées HAL. Comment corriger ça pour toutes les publications concernées ? »</div>
+      <div class="answer">
+        <p>Le lien publication ↔ projet ANR dans les métadonnées HAL est une <strong>clause contractuelle</strong> des contrats ANR. C'est donc à corriger en priorité, idéalement avant le bilan de fin de projet.</p>
+        <p>La procédure pour chaque publication concernée :</p>
+        <ol>
+          <li>Connectez-vous à HAL et allez sur la page de la publication</li>
+          <li>Cliquez sur <em>Modifier</em> (si vous êtes auteur ou déposant)</li>
+          <li>Dans l'onglet <em>Métadonnées</em>, trouvez le champ <strong>Projet ANR</strong></li>
+          <li>Tapez l'acronyme ou la référence ANR (ex. <code>ANR-22-CE23-0022</code>) pour le retrouver dans la liste déroulante</li>
+          <li>Sélectionnez le projet et enregistrez</li>
+        </ol>
+        <p>Pour les projets européens (Horizon Europe, ERC), le champ <em>Projet européen</em> fonctionne de la même manière avec la référence CORDIS.</p>
+        <div class="alert alert-info">
+          <strong>Si vous avez beaucoup de publications à corriger ou si vous n'avez pas les droits :</strong>
+          contactez-moi en tant que représentant HAL d'IBISC. Je peux intervenir au nom du laboratoire pour compléter les métadonnées sur des publications anciennes, notice par notice ou par lot. Envoyez-moi la liste des URLs HAL concernées et l'acronyme/référence du projet à associer.
+        </div>
+        <p>Pour les autres financements (régionaux, Genopole, contrats industriels), si votre projet n'est pas référencé dans HAL, vous pouvez soit demander au porteur de créer la fiche projet, soit utiliser le champ texte libre des métadonnées pour mentionner le financement.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 6 (lier ses publications à ses projets et financements), section 6.4 (rétroactivité).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q2.4</span> How do I retroactively link my publications to my ANR project?</h3>
+      <div class="symptom">"I just realized that my publications from my ANR project are not linked to the project in their HAL metadata. How do I correct this for all the publications concerned?"</div>
+      <div class="answer">
+        <p>The publication ↔ ANR project link in HAL metadata is a <strong>contractual clause</strong> of ANR grants. It should therefore be corrected as a priority, ideally before the end-of-project report.</p>
+        <p>The procedure for each publication concerned:</p>
+        <ol>
+          <li>Log in to HAL and go to the publication page</li>
+          <li>Click <em>Modify</em> (if you are author or depositor)</li>
+          <li>In the <em>Metadata</em> tab, find the <strong>ANR project</strong> field</li>
+          <li>Type the acronym or ANR reference (e.g. <code>ANR-22-CE23-0022</code>) to find it in the dropdown list</li>
+          <li>Select the project and save</li>
+        </ol>
+        <p>For European projects (Horizon Europe, ERC), the <em>European project</em> field works the same way with the CORDIS reference.</p>
+        <div class="alert alert-info">
+          <strong>If you have many publications to correct or if you don't have the rights:</strong>
+          contact me as IBISC's HAL representative. I can intervene on behalf of the laboratory to complete metadata on older publications, record by record or in batch. Send me the list of HAL URLs concerned and the acronym/reference of the project to associate.
+        </div>
+        <p>For other funding sources (regional, Genopole, industrial contracts), if your project is not referenced in HAL, you can either ask the PI to create the project record, or use the free text field of the metadata to mention the funding.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 6 (linking publications to projects and funding), section 6.4 (retroactivity).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- SECTION 3 : CV HAL                                                      -->
+<!-- ====================================================================== -->
+<section id="sec3">
+  <div data-lang="fr">
+    <h2>3. CV HAL</h2>
+    <p class="intro">Questions sur la création, la personnalisation et la synchronisation de votre CV HAL.</p>
+  </div>
+  <div data-lang="en">
+    <h2>3. CV HAL</h2>
+    <p class="intro">Questions on creating, customizing and synchronizing your CV HAL.</p>
+  </div>
+
+  <div class="qa" id="q31">
+    <div data-lang="fr">
+      <h3><span class="qref">Q3.1</span> J'ai créé mon CV HAL mais mes préférences ne semblent pas se mettre à jour</h3>
+      <div class="symptom">« Je l'ai créé, mais il ne se met pas à jour lorsque je sélectionne les préférences d'affichage. Est-ce que cela prend un certain temps, ou bien dois-je contacter le support CCSD ? »</div>
+      <div class="answer">
+        <p>C'est <strong>normal</strong>, il ne faut pas contacter le CCSD pour ça. Le CV HAL fonctionne selon un principe de <strong>batch nocturne</strong> :</p>
+        <ol>
+          <li>Quand vous modifiez vos préférences d'affichage (types de documents, facettes, biographie, identifiants à afficher, etc.), vos modifications sont bien enregistrées dans la base CCSD au moment où vous cliquez sur <em>Enregistrer</em>.</li>
+          <li>Mais la page publique <code>cv.hal.science/prenom-nom</code> n'est <strong>pas régénérée en temps réel</strong>. Elle est régénérée par un batch CCSD qui tourne pendant la nuit (généralement entre minuit et 6h du matin).</li>
+          <li>Au plus tard le lendemain matin, votre page CV HAL reflète les nouvelles préférences.</li>
+        </ol>
+        <p>En pratique :</p>
+        <ol>
+          <li>Vous cochez/décochez vos préférences dans <em>Mon CV → Modifier</em></li>
+          <li>Vous cliquez sur <em>Enregistrer</em></li>
+          <li>Vous attendez le lendemain matin</li>
+          <li>Vous rechargez <code>cv.hal.science/prenom-nom</code> (Ctrl+F5 pour forcer le rafraîchissement si besoin)</li>
+          <li>Vos préférences sont appliquées</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>Seuil de contact CCSD :</strong>
+          si après 48h vos préférences ne sont toujours pas visibles, là il faudra effectivement contacter <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>. Mais avant 24h, c'est juste le délai normal du batch.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : FAQ 7.8 du guide principal (« Pourquoi mon CV HAL est-il vide alors que j'ai bien des publications dans HAL ? »).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q3.1</span> I created my CV HAL but my preferences don't seem to update</h3>
+      <div class="symptom">"I created it, but it does not update when I select display preferences. Does it take some time, or should I contact CCSD support?"</div>
+      <div class="answer">
+        <p>This is <strong>normal</strong>, you don't need to contact CCSD for this. The CV HAL operates on a <strong>nightly batch</strong> principle:</p>
+        <ol>
+          <li>When you modify your display preferences (document types, facets, biography, identifiers to display, etc.), your changes are properly saved in the CCSD database the moment you click <em>Save</em>.</li>
+          <li>But the public page <code>cv.hal.science/firstname-lastname</code> is <strong>not regenerated in real time</strong>. It is regenerated by a CCSD batch that runs overnight (typically between midnight and 6am).</li>
+          <li>At the latest by the next morning, your CV HAL page reflects the new preferences.</li>
+        </ol>
+        <p>In practice:</p>
+        <ol>
+          <li>You check/uncheck your preferences in <em>My CV → Modify</em></li>
+          <li>You click <em>Save</em></li>
+          <li>You wait until the next morning</li>
+          <li>You reload <code>cv.hal.science/firstname-lastname</code> (Ctrl+F5 to force refresh if needed)</li>
+          <li>Your preferences are applied</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>CCSD contact threshold:</strong>
+          if after 48h your preferences are still not visible, then yes, you should contact <a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>. But before 24h, this is just the normal batch delay.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: FAQ 7.8 of the main guide ("Why is my CV HAL empty when I do have publications in HAL?").</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q32">
+    <div data-lang="fr">
+      <h3><span class="qref">Q3.2</span> Mon CV HAL est vide alors que j'ai bien des publications dans HAL</h3>
+      <div class="symptom">« J'ai créé mon CV HAL et il est en ligne, mais aucune publication n'apparaît dessus alors que j'ai bien des publications dans HAL. »</div>
+      <div class="answer">
+        <p>Plusieurs causes possibles, à vérifier dans l'ordre :</p>
+        <ol>
+          <li><strong>Délai de synchronisation</strong> : si vous venez de créer votre CV HAL, le batch nocturne CCSD doit avoir tourné au moins une fois. Attendez 24h et rechargez la page (voir Q3.1).</li>
+          <li><strong>Vos publications ne sont pas associées à votre idHAL.</strong> Allez dans <em>Mon IdHAL → onglet « Mes publications »</em> et vérifiez que vos publications y figurent. Si certaines manquent, c'est que les formes auteur n'ont pas été cochées.</li>
+          <li><strong>Les formes auteur de votre idHAL ne correspondent pas aux formes utilisées dans les publications.</strong> Dans <em>Mon IdHAL → onglet « Mes formes »</em>, cochez toutes les variantes de votre nom qui vous appartiennent (« Hedi Tabia », « H. Tabia », « Tabia, H. », etc.). Le CV HAL se met à jour le lendemain matin au plus tard.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>À ne pas confondre :</strong>
+          si vous ne voyez pas vos publications dans la rubrique <em>« Mes dépôts »</em>, c'est une autre question (voir Q1.2) — cette rubrique n'affiche que ce que vous avez déposé vous-même, alors que le CV HAL affiche tout ce qui est rattaché à votre idHAL.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 5 (création du CV HAL), FAQ 7.8 et 7.6.</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q3.2</span> My CV HAL is empty even though I have publications in HAL</h3>
+      <div class="symptom">"I created my CV HAL and it's online, but no publications appear on it even though I do have publications in HAL."</div>
+      <div class="answer">
+        <p>Several possible causes, to check in order:</p>
+        <ol>
+          <li><strong>Synchronization delay</strong>: if you just created your CV HAL, the nightly CCSD batch must have run at least once. Wait 24h and reload the page (see Q3.1).</li>
+          <li><strong>Your publications are not associated with your idHAL.</strong> Go to <em>My IdHAL → "My publications" tab</em> and verify that your publications are there. If some are missing, it means the author forms have not been checked.</li>
+          <li><strong>The author forms of your idHAL don't correspond to the forms used in the publications.</strong> In <em>My IdHAL → "My forms" tab</em>, check all variants of your name that belong to you ("Hedi Tabia", "H. Tabia", "Tabia, H.", etc.). The CV HAL updates by the next morning at the latest.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Not to be confused:</strong>
+          if you don't see your publications in the <em>"My deposits"</em> section, that's a different question (see Q1.2) — that section only shows what you have deposited yourself, while the CV HAL shows everything linked to your idHAL.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 5 (creating the CV HAL), FAQ 7.8 and 7.6.</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q33">
+    <div data-lang="fr">
+      <h3><span class="qref">Q3.3</span> Comment personnaliser mon CV HAL au-delà des publications ?</h3>
+      <div class="symptom">« Mon CV HAL ne montre que ma liste de publications. Comment ajouter d'autres informations (biographie, projets, mandats) pour qu'il soit vraiment représentatif de mon activité ? »</div>
+      <div class="answer">
+        <p>Beaucoup de CV HAL se limitent à la liste automatique des publications, ce qui est dommage. Le <strong>texte libre</strong> (biographie) permet d'enrichir significativement la page. Trois catégories d'informations sont particulièrement utiles à ajouter :</p>
+        <ol>
+          <li><strong>Projets de recherche en cours et passés</strong>, avec votre rôle (coordinateur, responsable de tâche, partenaire scientifique, membre du comité de pilotage). Pour chaque projet : acronyme, nom long, financeur (ANR, Europe, Genopole, etc.), période, partenaires principaux. Lien web si disponible.</li>
+          <li><strong>Mandats électifs et responsabilités collectives</strong> (si applicable) : vice-présidence Université, direction de composante, direction de laboratoire, responsabilité d'équipe IBISC, responsabilité de plate-forme, membre élu de conseil (CNU, conseil scientifique, etc.). Pour chaque mandat : intitulé, organisme, période.</li>
+          <li><strong>Activités d'animation scientifique</strong> : organisation de conférences, ateliers, écoles thématiques ; membre de comité de programme ; éditeur invité de numéro spécial ; rapporteur ou jury de thèse / HDR ; expertise pour ANR, agences européennes, HCERES.</li>
+        </ol>
+        <p>Pour modifier le texte libre, allez dans <em>Mon CV → Modifier</em> puis dans le champ <em>Biographie</em> ou <em>Texte libre</em>. Vous pouvez utiliser du formatage HTML simple (gras, italique, listes, liens).</p>
+        <div class="alert alert-info">
+          <strong>Pourquoi enrichir le texte libre ?</strong>
+          Une fiche CV HAL avec seulement la liste des publications donne une image partielle de votre activité scientifique. En ajoutant projets, mandats et activités d'animation, vous fournissez aux visiteurs (recruteurs, partenaires potentiels, doctorants candidats, agences de financement) une vision complète et actualisée. Comme le texte libre est entièrement sous votre contrôle, vous pouvez le mettre à jour à votre rythme, indépendamment des publications qui se mettent à jour automatiquement.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 5 (création du CV HAL), encadré « Ce qu'il est utile d'inclure dans le CV HAL au-delà des publications ».</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q3.3</span> How do I customize my CV HAL beyond the publications list?</h3>
+      <div class="symptom">"My CV HAL only shows my publications list. How do I add other information (biography, projects, positions) to make it truly representative of my activity?"</div>
+      <div class="answer">
+        <p>Many CV HALs are limited to the automatic publications list, which is unfortunate. The <strong>free text</strong> (biography) allows significant enrichment of the page. Three categories of information are particularly useful to add:</p>
+        <ol>
+          <li><strong>Current and past research projects</strong>, with your role (coordinator, task leader, scientific partner, member of steering committee). For each project: acronym, long name, funder (ANR, Europe, Genopole, etc.), period, main partners. Web link if available.</li>
+          <li><strong>Elective positions and collective responsibilities</strong> (if applicable): University vice-presidency, component head, laboratory direction, IBISC team head, platform responsibility, elected member of council (CNU, scientific council, etc.). For each position: title, organization, period.</li>
+          <li><strong>Scientific animation activities</strong>: organizing conferences, workshops, thematic schools; program committee member; guest editor of special issue; PhD/HDR thesis reviewer or jury member; expertise for ANR, European agencies, HCERES.</li>
+        </ol>
+        <p>To modify the free text, go to <em>My CV → Modify</em> then to the <em>Biography</em> or <em>Free text</em> field. You can use simple HTML formatting (bold, italic, lists, links).</p>
+        <div class="alert alert-info">
+          <strong>Why enrich the free text?</strong>
+          A CV HAL with only the publications list gives a partial image of your scientific activity. By adding projects, positions and animation activities, you provide visitors (recruiters, potential partners, candidate PhD students, funding agencies) with a complete and up-to-date vision. Since the free text is entirely under your control, you can update it at your own pace, independently of the publications which update automatically.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 5 (creating the CV HAL), box "What is useful to include in the CV HAL beyond publications".</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- SECTION 4 : ORCID ET LIAISON AVEC HAL                                   -->
+<!-- ====================================================================== -->
+<section id="sec4">
+  <div data-lang="fr">
+    <h2>4. ORCID et liaison avec HAL</h2>
+    <p class="intro">Questions sur ORCID, son rôle dans votre identité numérique, et sa liaison avec votre compte HAL et votre idHAL.</p>
+  </div>
+  <div data-lang="en">
+    <h2>4. ORCID and linking with HAL</h2>
+    <p class="intro">Questions on ORCID, its role in your digital identity, and its connection with your HAL account and your idHAL.</p>
+  </div>
+
+  <div class="qa" id="q41">
+    <div data-lang="fr">
+      <h3><span class="qref">Q4.1</span> Comment lier mon ORCID à mon idHAL ?</h3>
+      <div class="symptom">« J'ai un ORCID et j'ai créé mon idHAL, mais les deux ne semblent pas connectés. Comment faire la liaison ? »</div>
+      <div class="answer">
+        <p>La liaison ORCID-HAL est <strong>très importante</strong> : elle permet à vos publications HAL d'être automatiquement synchronisées vers votre profil ORCID, et inversement. Vous ne saisissez chaque publication qu'une seule fois, et elle apparaît dans les deux systèmes.</p>
+        <p>La procédure prend moins de 5 minutes :</p>
+        <ol>
+          <li>Connectez-vous à HAL avec votre compte (<code>hal.science</code>)</li>
+          <li>Allez dans <em>Mon IdHAL</em> (clic sur vos initiales en haut à droite, puis <em>Mon IdHAL</em>)</li>
+          <li>Repérez le bouton ou la section <em>Connecter ORCID</em> (ou « Lier mon ORCID »)</li>
+          <li>Cliquez dessus : vous serez redirigé·e vers le site ORCID</li>
+          <li>Authentifiez-vous sur ORCID (login + mot de passe ORCID)</li>
+          <li>Autorisez HAL à accéder à votre profil ORCID (case à cocher d'autorisation)</li>
+          <li>Vous êtes redirigé·e vers HAL : la liaison est établie</li>
+        </ol>
+        <p>Une fois la liaison faite, vous avez deux options de synchronisation à activer dans votre profil HAL :</p>
+        <ul>
+          <li><strong>HAL → ORCID</strong> : les publications HAL alimentent automatiquement votre profil ORCID</li>
+          <li><strong>ORCID → HAL</strong> : optionnel, à n'activer que si vous avez déjà beaucoup de publications dans ORCID que vous voulez importer dans HAL (sinon ça peut créer des doublons)</li>
+        </ul>
+        <div class="alert alert-info">
+          <strong>Recommandation :</strong>
+          activez la synchronisation HAL → ORCID dans 99 % des cas. C'est le sens naturel à IBISC : les publications passent d'abord par HAL (via moi ou via vous), et alimentent ensuite ORCID. La synchronisation inverse n'est utile que si vous arrivez d'une institution où ORCID était le système principal.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 4 (lier ORCID à idHAL et autoriser la synchronisation).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q4.1</span> How do I link my ORCID to my idHAL?</h3>
+      <div class="symptom">"I have an ORCID and I created my idHAL, but the two don't seem connected. How do I make the link?"</div>
+      <div class="answer">
+        <p>The ORCID-HAL link is <strong>very important</strong>: it allows your HAL publications to be automatically synchronized to your ORCID profile, and vice versa. You enter each publication only once, and it appears in both systems.</p>
+        <p>The procedure takes less than 5 minutes:</p>
+        <ol>
+          <li>Log in to HAL with your account (<code>hal.science</code>)</li>
+          <li>Go to <em>My IdHAL</em> (click on your initials in the top right, then <em>My IdHAL</em>)</li>
+          <li>Locate the <em>Connect ORCID</em> button or section (or "Link my ORCID")</li>
+          <li>Click on it: you will be redirected to the ORCID website</li>
+          <li>Authenticate on ORCID (ORCID login + password)</li>
+          <li>Authorize HAL to access your ORCID profile (authorization checkbox)</li>
+          <li>You are redirected back to HAL: the link is established</li>
+        </ol>
+        <p>Once the link is made, you have two synchronization options to activate in your HAL profile:</p>
+        <ul>
+          <li><strong>HAL → ORCID</strong>: HAL publications automatically feed your ORCID profile</li>
+          <li><strong>ORCID → HAL</strong>: optional, to activate only if you already have many publications in ORCID that you want to import into HAL (otherwise it may create duplicates)</li>
+        </ul>
+        <div class="alert alert-info">
+          <strong>Recommendation:</strong>
+          activate HAL → ORCID synchronization in 99% of cases. This is the natural direction at IBISC: publications first go through HAL (via me or via you), and then feed ORCID. Reverse synchronization is only useful if you arrive from an institution where ORCID was the main system.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 4 (linking ORCID to idHAL and authorizing synchronization).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q42">
+    <div data-lang="fr">
+      <h3><span class="qref">Q4.2</span> La liaison ORCID-HAL ne semble pas fonctionner</h3>
+      <div class="symptom">« J'ai fait la liaison ORCID-HAL il y a quelques jours, mais mes publications HAL n'apparaissent toujours pas dans mon profil ORCID. »</div>
+      <div class="answer">
+        <p>Plusieurs causes possibles :</p>
+        <ol>
+          <li><strong>Délai de synchronisation</strong> : comme pour le CV HAL, la synchronisation ORCID se fait par batch. Comptez 24 à 48h après l'établissement de la liaison pour que les publications HAL commencent à apparaître dans ORCID.</li>
+          <li><strong>La synchronisation HAL → ORCID n'est pas activée</strong> : la liaison technique est faite, mais la case d'autorisation de transfert n'a pas été cochée. Retournez dans <em>Mon IdHAL → préférences</em> et vérifiez que la synchronisation est bien active.</li>
+          <li><strong>L'autorisation ORCID a expiré</strong> : ORCID demande parfois une réauthentification après plusieurs mois. Refaites le clic <em>Connecter ORCID</em> pour rafraîchir l'autorisation.</li>
+          <li><strong>Vos publications HAL ne sont pas rattachées à votre idHAL</strong> : seules les publications associées à votre idHAL sont transmises à ORCID. Vérifiez dans <em>Mon IdHAL → Mes publications</em> (voir aussi Q3.2).</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>Si après 48h rien ne se passe :</strong>
+          contactez-moi avec votre idHAL et votre ORCID. Je peux vérifier l'état de la liaison côté HAL et identifier rapidement où ça coince. Si vraiment le problème vient de l'API ORCID, on contactera ensemble le support CCSD (<a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>) avec un diagnostic précis.
+        </div>
+        <p>À noter : la synchronisation est <strong>incrémentale</strong> — chaque nouveau dépôt HAL part vers ORCID à la prochaine exécution du batch. Si vous attendez que vos 50 publications anciennes apparaissent d'un coup, ça peut prendre quelques cycles (la synchronisation initiale en masse n'est pas toujours immédiate).</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : étape 4 (liaison ORCID-HAL), FAQ 7.9.</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q4.2</span> The ORCID-HAL link does not seem to work</h3>
+      <div class="symptom">"I established the ORCID-HAL link a few days ago, but my HAL publications still don't appear in my ORCID profile."</div>
+      <div class="answer">
+        <p>Several possible causes:</p>
+        <ol>
+          <li><strong>Synchronization delay</strong>: as with the CV HAL, ORCID synchronization runs as a batch. Count 24 to 48h after establishing the link before HAL publications start appearing in ORCID.</li>
+          <li><strong>HAL → ORCID synchronization is not activated</strong>: the technical link is made, but the transfer authorization checkbox has not been checked. Go back to <em>My IdHAL → preferences</em> and check that synchronization is active.</li>
+          <li><strong>ORCID authorization has expired</strong>: ORCID sometimes requires re-authentication after several months. Click <em>Connect ORCID</em> again to refresh the authorization.</li>
+          <li><strong>Your HAL publications are not linked to your idHAL</strong>: only publications associated with your idHAL are transmitted to ORCID. Check in <em>My IdHAL → My publications</em> (see also Q3.2).</li>
+        </ol>
+        <div class="alert alert-warning">
+          <strong>If after 48h nothing happens:</strong>
+          contact me with your idHAL and your ORCID. I can check the status of the link on the HAL side and quickly identify where it gets stuck. If the problem really comes from the ORCID API, we will contact CCSD support together (<a href="mailto:hal@ccsd.cnrs.fr">hal@ccsd.cnrs.fr</a>) with a precise diagnosis.
+        </div>
+        <p>Note: synchronization is <strong>incremental</strong> — each new HAL deposit goes to ORCID at the next batch execution. If you expect your 50 older publications to appear all at once, it can take a few cycles (initial mass synchronization is not always immediate).</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: step 4 (ORCID-HAL link), FAQ 7.9.</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- SECTION 5 : CAS PARTICULIERS                                            -->
+<!-- ====================================================================== -->
+<section id="sec5">
+  <div data-lang="fr">
+    <h2>5. Cas particuliers</h2>
+    <p class="intro">Réponses ciblées pour certains profils particuliers d'IBISC : doctorants en cotutelle internationale, EC arrivés d'un autre laboratoire, doctorants en début de thèse.</p>
+  </div>
+  <div data-lang="en">
+    <h2>5. Special cases</h2>
+    <p class="intro">Targeted answers for some specific IBISC profiles: PhD students in international co-supervision, faculty arrived from another laboratory, PhD students in early stage.</p>
+  </div>
+
+  <div class="qa" id="q51">
+    <div data-lang="fr">
+      <h3><span class="qref">Q5.1</span> Doctorants en cotutelle internationale</h3>
+      <div class="symptom">« Je suis en cotutelle entre IBISC et une institution étrangère. Comment gérer cette double affiliation dans mes publications HAL et dans mon identité numérique ? »</div>
+      <div class="answer">
+        <p>La cotutelle internationale est un cas où l'identité numérique pérenne (ORCID + idHAL + CV HAL) est <strong>particulièrement précieuse</strong>, parce qu'elle vous suit indépendamment des institutions et des conventions de signature.</p>
+        <p>Recommandations pratiques :</p>
+        <ol>
+          <li><strong>Affiliations des publications</strong> : pour chaque dépôt HAL, déclarez les <em>deux</em> affiliations (IBISC + votre institution étrangère). HAL accepte plusieurs affiliations par auteur dans une même publication. C'est même attendu en cotutelle — ne choisissez pas l'une au détriment de l'autre.</li>
+          <li><strong>Signature normalisée</strong> : choisissez une forme cohérente entre les deux institutions, et utilisez-la systématiquement. Exemple : <em>Prénom Nom, IBISC, Univ Evry Paris-Saclay, France ; [Affiliation étrangère], Pays</em>.</li>
+          <li><strong>ORCID prioritaire</strong> : l'ORCID est votre identité véritablement internationale. Il survit à votre retour dans votre pays d'origine après la soutenance et permet à vos futurs employeurs / collaborateurs internationaux de retrouver votre production complète.</li>
+          <li><strong>idHAL toujours utile</strong> : même si une partie de votre production est référencée dans d'autres bases (DBLP, Scopus, etc.), l'idHAL HAL reste votre point d'ancrage en France pour les évaluations HCERES, les candidatures CR/MCF, et les bilans IBISC.</li>
+          <li><strong>CV HAL</strong> : c'est l'outil idéal pour présenter votre production complète aux jurys de soutenance, à vos directeurs de thèse, à vos futurs employeurs. L'URL pérenne <code>cv.hal.science/prenom-nom</code> ne change pas après votre soutenance ni après votre retour dans votre pays d'origine.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Cas typique :</strong>
+          un·e doctorant·e en cotutelle entre IBISC et une institution étrangère, signant ses publications avec les deux affiliations. Son idHAL hébergé dans HAL régence sa production française, et son ORCID régence sa production internationale. Le CV HAL lui donne une vitrine personnelle accessible depuis n'importe où dans le monde.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 3 (cas particuliers — doctorants en cotutelle internationale).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q5.1</span> PhD students in international co-supervision</h3>
+      <div class="symptom">"I'm in co-supervision between IBISC and a foreign institution. How do I manage this dual affiliation in my HAL publications and my digital identity?"</div>
+      <div class="answer">
+        <p>International co-supervision is a case where a persistent digital identity (ORCID + idHAL + CV HAL) is <strong>particularly valuable</strong>, because it follows you independently of institutions and signing conventions.</p>
+        <p>Practical recommendations:</p>
+        <ol>
+          <li><strong>Publication affiliations</strong>: for each HAL deposit, declare <em>both</em> affiliations (IBISC + your foreign institution). HAL accepts multiple affiliations per author in the same publication. This is even expected in co-supervision — don't choose one over the other.</li>
+          <li><strong>Normalized signature</strong>: choose a consistent form between the two institutions, and use it systematically. Example: <em>Firstname Lastname, IBISC, Univ Evry Paris-Saclay, France; [Foreign affiliation], Country</em>.</li>
+          <li><strong>ORCID first</strong>: ORCID is your truly international identity. It survives your return to your home country after the defence and allows your future employers / international collaborators to find your complete output.</li>
+          <li><strong>idHAL still useful</strong>: even if part of your output is referenced in other databases (DBLP, Scopus, etc.), the HAL idHAL remains your anchor point in France for HCERES evaluations, CR/MCF applications, and IBISC reports.</li>
+          <li><strong>CV HAL</strong>: this is the ideal tool to present your complete output to defence panels, your thesis supervisors, your future employers. The persistent URL <code>cv.hal.science/firstname-lastname</code> does not change after your defence nor after your return to your home country.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Typical case:</strong>
+          a PhD student in co-supervision between IBISC and a foreign institution, signing their publications with both affiliations. Their idHAL hosted in HAL covers their French output, and their ORCID covers their international output. The CV HAL gives them a personal showcase accessible from anywhere in the world.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 3 (special cases — PhD students in international co-supervision).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q52">
+    <div data-lang="fr">
+      <h3><span class="qref">Q5.2</span> EC arrivés d'un autre laboratoire</h3>
+      <div class="symptom">« Je suis arrivé·e à IBISC après une mutation, un recrutement externe, ou un retour de délégation. Comment gérer la transition de mon identité numérique HAL ? »</div>
+      <div class="answer">
+        <p>Plusieurs points de vigilance, dans l'ordre :</p>
+        <ol>
+          <li><strong>Compte HAL existant</strong> : vous avez probablement déjà un compte HAL et un idHAL créés à votre ancienne institution. <strong>Ne créez pas de nouveau compte.</strong> Mettez à jour votre profil HAL avec votre email univ-evry.fr (voir Q1.3) et changez votre affiliation par défaut pour IBISC (voir Q2.3).</li>
+          <li><strong>Vos publications anciennes</strong> sont factuellement affiliées à vos institutions précédentes. C'est correct — ne les modifiez pas pour les forcer à IBISC, ce serait historiquement faux. Elles restent visibles via votre idHAL (qui regroupe toutes vos publications quelle que soit l'institution). Voir Q2.1 sur l'affichage page Membre IBISC.</li>
+          <li><strong>Vos publications de transition</strong> (période de chevauchement entre ancienne et nouvelle institution) peuvent légitimement avoir une double affiliation. Vérifiez les notices et n'hésitez pas à demander une correction si une affiliation a été oubliée (voir Q2.2).</li>
+          <li><strong>Vos nouveaux dépôts</strong> doivent avoir l'affiliation IBISC forme verte par défaut. Vérifiez votre profil HAL.</li>
+          <li><strong>Idéal pour vous</strong> : c'est le bon moment pour faire le bilan complet de votre identité numérique : ORCID lié à idHAL ? CV HAL créé ? Publications anciennes correctement liées à leurs projets ANR / Europe ? Si plusieurs trous, contactez-moi — je peux vous accompagner sur 30-45 minutes en visio ou en face-à-face pour tout mettre à plat.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Spécificité IBISC :</strong>
+          en tant que représentant HAL d'IBISC, je suis automatiquement notifié de chaque nouvelle publication associée à IBISC. Quand vous arrivez et que vos premières publications IBISC sont déposées, je les vois et peux vérifier qu'elles sont bien rattachées à votre idHAL existant (et non créer un doublon involontaire). C'est une protection automatique contre les erreurs de rattachement.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 3 (cas particuliers — EC arrivés d'un autre laboratoire), Q1.3, Q2.1, Q2.3.</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q5.2</span> Faculty arrived from another laboratory</h3>
+      <div class="symptom">"I arrived at IBISC after a transfer, an external recruitment, or a return from secondment. How do I manage the transition of my HAL digital identity?"</div>
+      <div class="answer">
+        <p>Several points to watch, in order:</p>
+        <ol>
+          <li><strong>Existing HAL account</strong>: you probably already have a HAL account and an idHAL created at your previous institution. <strong>Don't create a new account.</strong> Update your HAL profile with your univ-evry.fr email (see Q1.3) and change your default affiliation to IBISC (see Q2.3).</li>
+          <li><strong>Your older publications</strong> are factually affiliated with your previous institutions. This is correct — don't modify them to force IBISC affiliation, that would be historically false. They remain visible via your idHAL (which groups all your publications regardless of institution). See Q2.1 about IBISC Member page display.</li>
+          <li><strong>Your transition publications</strong> (period overlapping between old and new institution) can legitimately have a dual affiliation. Check the records and don't hesitate to request a correction if an affiliation has been omitted (see Q2.2).</li>
+          <li><strong>Your new deposits</strong> should have the IBISC green form affiliation by default. Check your HAL profile.</li>
+          <li><strong>Good moment for you</strong>: it's the right time to do a complete review of your digital identity: ORCID linked to idHAL? CV HAL created? Older publications correctly linked to their ANR / European projects? If several gaps, contact me — I can guide you for 30-45 minutes in videoconference or face-to-face to clean everything up.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>IBISC specificity:</strong>
+          as IBISC's HAL representative, I am automatically notified of each new publication associated with IBISC. When you arrive and your first IBISC publications are deposited, I see them and can verify they are correctly linked to your existing idHAL (and not create an unintentional duplicate). It's an automatic protection against attachment errors.
+        </div>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 3 (special cases — faculty arrived from another laboratory), Q1.3, Q2.1, Q2.3.</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+  <div class="qa" id="q53">
+    <div data-lang="fr">
+      <h3><span class="qref">Q5.3</span> Doctorants en début de thèse sans publication</h3>
+      <div class="symptom">« Je commence ma thèse à IBISC et je n'ai aucune publication encore. Est-ce que je peux quand même créer un idHAL et un CV HAL ? Y a-t-il un intérêt ? »</div>
+      <div class="answer">
+        <p><strong>Pas encore d'idHAL, mais oui à l'ORCID.</strong> Voici la séquence à suivre selon votre avancement :</p>
+        <ol>
+          <li><strong>Dès le M1 — créez votre ORCID</strong> (5 minutes, étape 1 du guide). C'est totalement indépendant du fait d'avoir des publications. ORCID vous donne un identifiant unique à vie, indépendant de votre institution et de votre nom (utile si vous changez de nom de famille). C'est aussi de plus en plus exigé par les éditeurs et les agences de financement.</li>
+          <li><strong>Dès le M1 — choisissez votre signature normalisée</strong>. Avant même votre première publication, décidez la forme exacte que vous utiliserez systématiquement : <em>Prénom Nom, IBISC, Univ Evry Paris-Saclay, France</em>. Cohérence dès le début = pas de besoin de regrouper les formes plus tard.</li>
+          <li><strong>Après votre première publication HAL — créez votre idHAL</strong>. L'idHAL nécessite au moins une publication dans HAL pour pouvoir être créé. Dès que votre premier dépôt est validé (par moi en général, en tant que représentant HAL d'IBISC), vous pouvez créer votre idHAL dans la foulée.</li>
+          <li><strong>Avant la soutenance — créez votre CV HAL</strong>. Idéalement 6-12 mois avant la soutenance, pour que votre URL pérenne <code>cv.hal.science/prenom-nom</code> soit utilisable dans vos premiers dossiers de candidature post-doc ou CR/MCF.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Pourquoi anticiper même sans publication :</strong>
+          les EC permanents d'IBISC qui font cette démarche aujourd'hui doivent souvent consolider <em>a posteriori</em> 15 ou 20 ans de publications éparpillées sous plusieurs formes auteur. Vous, à ce stade de votre carrière, n'avez que 0 publication. La consolidation prendra 5 minutes, contre plusieurs heures dans 15 ans. C'est exactement pour ça que c'est le moment idéal pour mettre en place votre identité numérique scientifique.
+        </div>
+        <p>Aspect particulièrement précieux pour vous : votre adresse <code>prenom.nom@univ-evry.fr</code> sera désactivée quelques mois après votre soutenance. L'ORCID et l'idHAL, eux, restent à vie. Vos futurs employeurs, collaborateurs et co-auteurs vous retrouveront toujours.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">Voir aussi dans le guide</a></strong> : section 3 (cas particuliers — doctorants en début de thèse), étape 1 (création ORCID).</div>
+      <a href="#top" class="back-to-top">↑ Retour en haut</a>
+    </div>
+    <div data-lang="en">
+      <h3><span class="qref">Q5.3</span> PhD students in early stage without publications</h3>
+      <div class="symptom">"I'm starting my PhD at IBISC and I don't have any publications yet. Can I still create an idHAL and a CV HAL? Is it useful?"</div>
+      <div class="answer">
+        <p><strong>Not yet for idHAL, but yes for ORCID.</strong> Here is the sequence to follow according to your progress:</p>
+        <ol>
+          <li><strong>From M1 — create your ORCID</strong> (5 minutes, step 1 of the guide). It is totally independent of having publications. ORCID gives you a unique lifelong identifier, independent of your institution and your name (useful if you change your family name). It is also increasingly required by publishers and funding agencies.</li>
+          <li><strong>From M1 — choose your normalized signature</strong>. Even before your first publication, decide on the exact form you will use systematically: <em>Firstname Lastname, IBISC, Univ Evry Paris-Saclay, France</em>. Consistency from the start = no need to consolidate forms later.</li>
+          <li><strong>After your first HAL publication — create your idHAL</strong>. The idHAL requires at least one publication in HAL to be created. As soon as your first deposit is validated (by me generally, as IBISC's HAL representative), you can create your idHAL right after.</li>
+          <li><strong>Before the defence — create your CV HAL</strong>. Ideally 6-12 months before the defence, so that your persistent URL <code>cv.hal.science/firstname-lastname</code> can be used in your first post-doc or CR/MCF application files.</li>
+        </ol>
+        <div class="alert alert-info">
+          <strong>Why anticipate even without publications:</strong>
+          the permanent faculty members at IBISC who go through this process today often have to consolidate <em>a posteriori</em> 15 or 20 years of publications scattered under multiple author forms. You, at this stage of your career, have only 0 publications. Consolidation will take 5 minutes, versus several hours in 15 years. That is exactly why this is the ideal moment to set up your scholarly digital identity.
+        </div>
+        <p>Particularly valuable aspect for you: your <code>firstname.lastname@univ-evry.fr</code> address will be deactivated a few months after your defence. ORCID and idHAL, however, remain for life. Your future employers, collaborators and co-authors will always find you.</p>
+      </div>
+      <div class="ref-guide"><strong><a href="./guide-hal-orcid-cvhal-v1.0.pdf">See also in the guide</a></strong>: section 3 (special cases — PhD students in early stage), step 1 (creating ORCID).</div>
+      <a href="#top" class="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div data-lang="fr">
+    <p>FAQ — Identité numérique scientifique IBISC &middot; Version 1.0 (mai 2026)<br>
+    Documentation interne IBISC &middot; <a href="mailto:frederic.davesne@univ-evry.fr">Contact : F. Davesne</a><br>
+    Voir aussi : <a href="./guide-hal-orcid-cvhal-v1.0.pdf"><em>Guide pratique pour construire son identité numérique scientifique</em></a> (F. Davesne, mai 2026, PDF).</p>
+  </div>
+  <div data-lang="en">
+    <p>FAQ — Scholarly digital identity at IBISC &middot; Version 1.0 (May 2026)<br>
+    IBISC internal documentation &middot; <a href="mailto:frederic.davesne@univ-evry.fr">Contact: F. Davesne</a><br>
+    See also: <a href="./guide-hal-orcid-cvhal-v1.0.pdf"><em>Practical guide to building your scholarly digital identity</em></a> (F. Davesne, May 2026, PDF, in French only).</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  var savedLang = null;
+  try { savedLang = localStorage.getItem('faq-ibisc-lang'); } catch (e) {}
+
+  if (!savedLang) {
+    var browserLang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
+    savedLang = browserLang.startsWith('en') ? 'en' : 'fr';
+  }
+  setLang(savedLang);
+})();
+
+function setLang(lang) {
+  if (lang !== 'fr' && lang !== 'en') lang = 'fr';
+  document.body.classList.remove('show-fr', 'show-en');
+  document.body.classList.add('show-' + lang);
+  document.documentElement.lang = lang;
+
+  var btnFr = document.getElementById('btn-fr');
+  var btnEn = document.getElementById('btn-en');
+  if (btnFr && btnEn) {
+    btnFr.classList.toggle('active', lang === 'fr');
+    btnEn.classList.toggle('active', lang === 'en');
+  }
+
+  try { localStorage.setItem('faq-ibisc-lang', lang); } catch (e) {}
+}
+</script>
+</body>
+</html>

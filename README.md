@@ -1,7 +1,7 @@
 # Projet SI IBISC --- Documents de pilotage
 
 > Laboratoire IBISC --- Université Évry Paris-Saclay
-> Dernière mise à jour : 21 May 2026
+> Dernière mise à jour : 23 May 2026
 
 Ce dépôt héberge les documents de pilotage du projet de **refonte du site Web IBISC** engagé en mars 2026 par décision de la Pr. Feng CHU, directrice du laboratoire.
 
@@ -17,6 +17,18 @@ Documents institutionnels du chantier, diffusables sans restriction :
 | [`addendum-dmcom-lmee-v1.0.5.pdf`](public/addendum-dmcom-lmee-v1.0.5.pdf) | **Addendum DMCom/LMEE** v1.0.5 (20 mai 2026) --- éclaire Q3 (articulation UEVRY) |
 | [`cr-comite-web-1-v1.0.pdf`](public/cr-comite-web-1-v1.0.pdf) | **CR du Comité Web n°1** (11 mai 2026) --- 5 décisions, 4 actions, 4 arbitrages |
 | [`kit-graphique-ibisc-uevry-v1.3.zip`](public/kit-graphique-ibisc-uevry-v1.3.zip) | **Kit graphique IBISC × UEVRY** v1.3 --- tokens CSS, fontes URW DIN, logos |
+
+### 📁 `public/identite-numerique/` --- campagne identité numérique scientifique
+
+Ressources opérationnelles de la **campagne d'accompagnement à l'identité numérique scientifique** des membres IBISC, ouverte en mai 2026 en application de l'**Action 4** du Comité Web n°1 (« Message aux membres sur l'importance des identifiants pour synchronisation : idHAL, ORCID, cvHAL »). Destinée à tous les EC permanents, doctorants, et autres statuts.
+
+| Ressource | Description |
+|---|---|
+| [`faq-identite-numerique-ibisc-v1.0.html`](public/identite-numerique/faq-identite-numerique-ibisc-v1.0.html) | **FAQ Identité numérique IBISC** v1.0 --- 17 questions bilingues FR/EN sur 5 sections (création compte HAL, gestion publications/affiliations, CV HAL, liaison ORCID, cas particuliers) |
+| [`guide-hal-orcid-cvhal-v1.0.pdf`](public/identite-numerique/guide-hal-orcid-cvhal-v1.0.pdf) | **Guide HAL/ORCID/CV HAL IBISC** v1.0 --- guide pratique de référence à destination des membres IBISC |
+
+> Pilotage de la campagne : F. Davesne (Représentant HAL pour IBISC et LMEE)
+> Phase A test interne ✅ · Phase B pilote en cours · Phase C/D/E (déploiement EC + doctorants + autres) à venir
 
 ### 🔒 `reserve/` --- documents fondateurs du SI
 
@@ -73,4 +85,4 @@ Ce dépôt constitue une solution **transitoire**. À terme, une migration des d
 ---
 
 *Laboratoire IBISC --- Université Évry Paris-Saclay*
-*Document généré automatiquement par `deploy-projet-si.sh`*
+*Document généré automatiquement par `deploy-projet-si.sh` v1.1*
