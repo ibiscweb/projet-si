@@ -1,7 +1,7 @@
 # Projet SI IBISC --- Documents de pilotage
 
 > Laboratoire IBISC --- Université Évry Paris-Saclay
-> Dernière mise à jour : 23 May 2026
+> Dernière mise à jour : 27 May 2026
 
 Ce dépôt héberge les documents de pilotage du projet de **refonte du site Web IBISC** engagé en mars 2026 par décision de la Pr. Feng CHU, directrice du laboratoire.
 
@@ -24,7 +24,7 @@ Ressources opérationnelles de la **campagne d'accompagnement à l'identité num
 
 | Ressource | Description |
 |---|---|
-| [`faq-identite-numerique-ibisc-v1.0.html`](public/identite-numerique/faq-identite-numerique-ibisc-v1.0.html) | **FAQ Identité numérique IBISC** v1.0 --- 17 questions bilingues FR/EN sur 5 sections (création compte HAL, gestion publications/affiliations, CV HAL, liaison ORCID, cas particuliers) |
+| [`faq-identite-numerique-ibisc-v1.1.html`](public/identite-numerique/faq-identite-numerique-ibisc-v1.1.html) | **FAQ Identité numérique IBISC** v1.1 --- 18 questions bilingues FR/EN sur 5 sections (création compte HAL, gestion publications/affiliations, CV HAL, liaison ORCID, cas particuliers). Nouveauté v1.1 : Q1.6 sur l'association des publications déposées par F. Davesne au compte HAL fraîchement créé. |
 | [`guide-hal-orcid-cvhal-v1.0.pdf`](public/identite-numerique/guide-hal-orcid-cvhal-v1.0.pdf) | **Guide HAL/ORCID/CV HAL IBISC** v1.0 --- guide pratique de référence à destination des membres IBISC |
 
 > Pilotage de la campagne : F. Davesne (Représentant HAL pour IBISC et LMEE)
