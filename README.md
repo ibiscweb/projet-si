@@ -1,7 +1,7 @@
 # Projet SI IBISC --- Documents de pilotage
 
 > Laboratoire IBISC --- Université Évry Paris-Saclay
-> Dernière mise à jour : 27 May 2026
+> Dernière mise à jour : 1 July 2026
 
 Ce dépôt héberge les documents de pilotage du projet de **refonte du site Web IBISC** engagé en mars 2026 par décision de la Pr. Feng CHU, directrice du laboratoire.
 
@@ -16,6 +16,7 @@ Documents institutionnels du chantier, diffusables sans restriction :
 | [`note-cadrage-refonte-v1.0.pdf`](public/note-cadrage-refonte-v1.0.pdf) | **Note de cadrage** v1.0 (20 mai 2026) --- document de référence du chantier |
 | [`addendum-dmcom-lmee-v1.0.5.pdf`](public/addendum-dmcom-lmee-v1.0.5.pdf) | **Addendum DMCom/LMEE** v1.0.5 (20 mai 2026) --- éclaire Q3 (articulation UEVRY) |
 | [`cr-comite-web-1-v1.0.pdf`](public/cr-comite-web-1-v1.0.pdf) | **CR du Comité Web n°1** (11 mai 2026) --- 5 décisions, 4 actions, 4 arbitrages |
+| [`cr-comite-web-2-v1.0.pdf`](public/cr-comite-web-2-v1.0.pdf) | **CR du Comité Web n°2** (26 mai 2026) --- 4 arbitrages examinés, 6 actions, annuaire mis en ligne |
 | [`kit-graphique-ibisc-uevry-v1.3.zip`](public/kit-graphique-ibisc-uevry-v1.3.zip) | **Kit graphique IBISC × UEVRY** v1.3 --- tokens CSS, fontes URW DIN, logos |
 
 ### 📁 `public/identite-numerique/` --- campagne identité numérique scientifique
@@ -74,7 +75,8 @@ Certains documents (formulaires personnalisés, XML opérationnels) contiennent 
 - **11 mai 2026** : Comité Web n°1 (Pelvoux, salle Ax10)
 - **16 mai 2026** : clôture de l'enquête
 - **20 mai 2026** : Note de cadrage v1.0 + Addendum
-- **Fin mai / début juin 2026** : Comité Web n°2 (IBGBI)
+- **26 mai 2026** : Comité Web n°2 (IBGBI) --- 4 arbitrages, essai comparatif du moteur lancé
+- **16 juin 2026** : finalisation du CR n°2
 
 ## ⚖️ Gouvernance documentaire
 
