@@ -17,6 +17,7 @@ Documents institutionnels du chantier, diffusables sans restriction :
 | [`addendum-dmcom-lmee-v1.0.5.pdf`](public/addendum-dmcom-lmee-v1.0.5.pdf) | **Addendum DMCom/LMEE** v1.0.5 (20 mai 2026) --- éclaire Q3 (articulation UEVRY) |
 | [`cr-comite-web-1-v1.0.pdf`](public/cr-comite-web-1-v1.0.pdf) | **CR du Comité Web n°1** (11 mai 2026) --- 5 décisions, 4 actions, 4 arbitrages |
 | [`cr-comite-web-2-v1.0.pdf`](public/cr-comite-web-2-v1.0.pdf) | **CR du Comité Web n°2** (26 mai 2026) --- 4 arbitrages examinés, 6 actions, annuaire mis en ligne |
+| [`architecture-site-web-codir-2026-06-v1.0.pdf`](public/architecture-site-web-codir-2026-06-v1.0.pdf) | **Architecture des pages du site --- Comité de direction** (23 juin 2026) --- du site actuel à la proposition de la direction |
 | [`kit-graphique-ibisc-uevry-v1.3.zip`](public/kit-graphique-ibisc-uevry-v1.3.zip) | **Kit graphique IBISC × UEVRY** v1.3 --- tokens CSS, fontes URW DIN, logos |
 
 ### 📁 `public/identite-numerique/` --- campagne identité numérique scientifique
